@@ -9,7 +9,7 @@ using namespace std;
 
 int main(){
   int my_int = 10;
-  int *my_iptr, *my_iptr2; // creat integer pointers
+  int *my_iptr, *my_iptr2; // create integer pointers
 
   my_iptr = &my_int; // make iptr point to the memory address of my_int
 
