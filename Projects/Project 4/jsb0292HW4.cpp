@@ -12,6 +12,8 @@ struct Tile {
 };
 
 void openBoard(ifstream& in_s, Tile **t, int& x, int& y);
+void setBoard(ifstream& in_s, Tile **t, int x, int y);
+void printBoard(Tile **t, int x, int y);
 
 int main(){
   cout << "***************************************************" << endl;
@@ -31,9 +33,10 @@ int main(){
     tiles[i] = new Tile[x];
   }
 
-  cout << x << endl;
-  cout << y << endl;
-  
+  setBoard(in_s, tiles, x, y);
+
+  printBoard(tiles, x, y);
+
   in_s.close();
   for (int i = 0; i < y; i++){
     delete[] tiles[i];
@@ -59,4 +62,31 @@ void openBoard(ifstream& in_s, Tile **t, int& x, int& y){
   }
   x /= y;
 
+  in_s.clear();
+  in_s.seekg(0, ios::beg);
+}
+
+void setBoard(ifstream& in_s, Tile **t, int x, int y){
+  char c;
+  in_s.get(c);
+  int j_actual;
+  for (int i = 0; i < y; i++){
+    j_actual = 0;
+    for (int j = 0; j < (x+x-1); j++){
+      if((c==LOCKED)||(c==EMPTY)){
+        t[i][j_actual].type = static_cast<TYPE>(c);
+        j_actual++;
+      }
+      in_s.get(c);
+    }
+  }
+}
+
+void printBoard(Tile **t, int x, int y){
+  for (int i = 0; i < y; i++){
+    for (int j = 0; j < x; j++){
+      cout << static_cast<char>(t[i][j].type) << " ";
+    }
+    cout << endl;
+  }
 }
